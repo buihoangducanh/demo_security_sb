@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1 class="mt-4">Shopping Cart</h1>
+  <table class="table table-striped">
+    <tr>
+      <th>Product ID</th>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Subtotal</th>
+      <th></th>
+    </tr>
+    <tr th:each="item : ${cartItems}">
+      <td th:text="${item.productId}"></td>
+      <td th:text="${item.productName}"></td>
+      <td th:text="${item.quantity}"></td>
+      <td th:text="${item.price}"></td>
+      <td th:text="${item.price * item.quantity}"></td>
+      <td>
+        <form th:action="@{/cart/remove}" method="post">
+          <input type="hidden" name="productId" th:value="${item.productId}" />
+          <input type="submit" class="btn btn-danger btn-sm" value="Remove" />
+        </form>
+      </td>
+    </tr>
+  </table>
+  <p>Total Price: <span th:text="${totalPrice}"></span></p>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
